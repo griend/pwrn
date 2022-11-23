@@ -1,2 +1,3 @@
-# pwrn
-pwrn / prewarn
+# pwrn / prewarn
+
+Nautical calculations.
