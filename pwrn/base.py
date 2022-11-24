@@ -1,4 +1,5 @@
-from pwrn.error import LatitudeError
+from pwrn.error import LatitudeError, LongitudeError
+
 
 class Angle:
     def __init__(self):
@@ -22,17 +23,34 @@ class Latitude(Angle):
         super().set_degrees(deg)
 
     def __str__(self):
-        s = 'N' if self.degrees >= 0.0 else 'S'
-        a = abs(self.degrees)
+        deg = self.get_degrees()
+        s = "N" if deg >= 0.0 else "S"
+        a = abs(deg)
         d = int(round(a))
         m = a * 60.0 - d * 60.0
-        str = f'{d:02} {m:02.3} {s}'
-        return str 
+        min = f"{m:0.3}"
+        min = f"0{min}" if len(min) <= 3 else min
+        str = f"{d:02} {min} {s}"
+        return str
 
 
-if __name__ == "__main__":
-    print(Latitude(52.25))
-    print(Latitude(52.33))
-    print(Latitude(52.50))
+class Longitude(Angle):
+    def __init__(self, deg: float):
+        self.set_degrees(deg)
 
-    print(Latitude(91.0))
+    def set_degrees(self, deg: float):
+        if deg < -180.0 or deg > 180.0:
+            raise LongitudeError()
+
+        super().set_degrees(deg)
+
+    def __str__(self):
+        deg = self.get_degrees()
+        s = "E" if deg >= 0.0 else "W"
+        a = abs(deg)
+        d = int(round(a))
+        m = a * 60.0 - d * 60.0
+        min = f"{m:0.3}"
+        min = f"0{min}" if len(min) <= 3 else min
+        str = f"{d:03} {min} {s}"
+        return str

@@ -4,3 +4,7 @@ class NauticalError(ValueError):
 
 class LatitudeError(NauticalError):
     pass
+
+
+class LongitudeError(NauticalError):
+    pass
