@@ -54,6 +54,34 @@ class TestLongitude(unittest.TestCase):
         with self.assertRaises(LongitudeException):
             long = Longitude(-181.0)
 
+    def test_sub00(self):
+        long0 = Longitude(0.0)
+        long1 = Longitude(4.25)
+        delta = long1 - long0
+
+        self.assertEqual(delta.degrees, 4.25)
+
+    def test_sub01(self):
+        long0 = Longitude(180.0)
+        long1 = Longitude(-180.0)
+        delta = long1 - long0
+
+        self.assertEqual(delta.degrees, -360.0)
+
+    def test_sub02(self):
+        long0 = Longitude(-180.0)
+        long1 = Longitude(180.0)
+        delta = long1 - long0
+
+        self.assertEqual(delta.degrees, 360.0)
+
+    def test_sub03(self):
+        long0 = Longitude(4.0)
+        long1 = Longitude(4.50)
+        delta = long1 - long0
+
+        self.assertEqual(delta.degrees, 0.5)
+
 
 if __name__ == "__main__":
     unittest.main()

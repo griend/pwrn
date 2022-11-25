@@ -54,6 +54,34 @@ class TestLatitude(unittest.TestCase):
         with self.assertRaises(LatitudeException):
             lat = Latitude(-91.0)
 
+    def test_sub00(self):
+        lat0 = Latitude(0.0)
+        lat1 = Latitude(52.0)
+        delta = lat1 - lat0
+
+        self.assertEqual(delta.degrees, 52.0)
+
+    def test_sub01(self):
+        lat0 = Latitude(90.0)
+        lat1 = Latitude(-90.0)
+        delta = lat1 - lat0
+
+        self.assertEqual(delta.degrees, -180.0)
+
+    def test_sub02(self):
+        lat0 = Latitude(-90.0)
+        lat1 = Latitude(90.0)
+        delta = lat1 - lat0
+
+        self.assertEqual(delta.degrees, 180.0)
+
+    def test_sub03(self):
+        lat0 = Latitude(52.0)
+        lat1 = Latitude(52.50)
+        delta = lat1 - lat0
+
+        self.assertEqual(delta.degrees, 0.5)
+
 
 if __name__ == "__main__":
     unittest.main()
